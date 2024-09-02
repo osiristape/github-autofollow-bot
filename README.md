@@ -20,9 +20,16 @@ This script may violate GitHub's community guidelines. Use it for educational pu
    
 2. **Create a virtual environment and activate it:**
    ```sh
+   # Linux
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   source venv/bin/activate 
    ```
+   ```sh
+   # Windows
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+   
    
 3. **Install the dependencies:**
    ```sh
@@ -37,7 +44,10 @@ This script may violate GitHub's community guidelines. Use it for educational pu
    
 5. **Run the script:**
    ```sh
-   python autofollow.py
+   python autofollow.py #linux environment
+   ```
+   ```sh
+   python autofollow_msedge.py #windows
    ```
 
 ## License
