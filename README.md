@@ -14,7 +14,7 @@ This script may violate GitHub's community guidelines. Use it for educational pu
 
 1. **Clone the repository:**
    ```sh
-   git clone https://github.com/yourusername/github-follower-bot.git
+   git clone https://github.com/osiristape/github-follower-bot.git
    cd github-follower-bot
    ```
    
