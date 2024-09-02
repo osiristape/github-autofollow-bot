@@ -44,10 +44,7 @@ This script may violate GitHub's community guidelines. Use it for educational pu
    
 5. **Run the script:**
    ```sh
-   python autofollow.py #linux environment
-   ```
-   ```sh
-   python autofollow_msedge.py #windows
+   python autofollow.py # use ms_edge browser 
    ```
 
 ## License
