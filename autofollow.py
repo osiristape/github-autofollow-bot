@@ -4,7 +4,7 @@ import threading
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
-from utils import load_credentials, get_user_inputs, set_delay, click_follow_button, display_intro, get_user_agreement
+from scripts.utils import load_credentials, get_user_inputs, set_delay, click_follow_button, display_intro, get_user_agreement
 
 # Specify the path to the EdgeDriver executable
 driver_service = Service(r'C:\Path\To\Your\msedgedriver.exe')
