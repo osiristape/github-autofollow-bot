@@ -4,7 +4,7 @@ import threading
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
-from scripts.utils import load_credentials, get_user_inputs, set_delay, click_follow_button, display_intro, get_user_agreement
+from scripts.utils import load_credentials, get_user_inputs, set_delay, click_follow_button, display_intro, get_user_agreement, ask_for_2fa_verification
 
 # Specify the path to the EdgeDriver executable
 driver_service = Service(r'C:\Path\To\Your\msedgedriver.exe')
@@ -65,6 +65,12 @@ def main():
     github_username, github_password = load_credentials()
     repo_url, start_page, speed_mode = get_user_inputs()
     delay = set_delay(speed_mode)
+
+    # Ask for 2FA verification
+    needs_2fa = ask_for_2fa_verification()
+    if needs_2fa:
+        logging.info("2FA verification required. Waiting for 60 seconds...")
+        time.sleep(60)
 
     logging.info("Starting now")
 
