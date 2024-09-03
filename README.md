@@ -14,8 +14,8 @@ This script may violate GitHub's community guidelines. Use it for educational pu
 
 1. **Clone the repository:** 
    ```sh
-   git clone https://github.com/osiristape/github-follower-bot.git
-   cd github-follower-bot
+   git clone https://github.com/osiristape/github-autofollow-bot.git
+   cd github-autofollow-bot
    ```
    
 2. **Create a virtual environment and activate it:**
