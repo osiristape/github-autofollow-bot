@@ -1,4 +1,4 @@
-# github-follower-bot
+# github-autofollow-bot
 This Python script automates the process of following users on GitHub stargazers pages. Designed for educational purposes, the script logs into GitHub, navigates to a repository's stargazers page, and follows users based on configurable settings.
 
 ## Features
