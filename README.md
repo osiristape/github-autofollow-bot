@@ -25,7 +25,7 @@ The script provides detailed logs of the actions performed, helping you track th
 
 ## Disclaimer
 
-This script may violate GitHub's community guidelines. Use it for educational purposes only.
+Please use this script responsibly and abide by all relevant terms and conditions while using GitHub.
 
 ## Setup
 
@@ -68,7 +68,9 @@ This script may violate GitHub's community guidelines. Use it for educational pu
 
 This project is licensed under *The Unlicense*.
 
+## Credits
+This project is based on the template provided using [GitHub-Auto-Follow](https://github.com/ZigaoWang/github-auto-follow/blob/master/main.py).
 
-
+I have made modifications and improvements to suit the needs of my specific use case. Please refer to the original repository for further details.
 
 
