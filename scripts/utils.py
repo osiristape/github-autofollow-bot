@@ -1,73 +1,83 @@
 import os
 import random
 import logging
-import time  # Ensure this is imported
-from dotenv import load_dotenv
+import time
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import StaleElementReferenceException
 
 # Constants
-DEFAULT_REPO_URL = "https://github.com/torvalds/linux"
+DEFAULT_REPO_URL = "https://github.com/gradle/gradle"
+DEFAULT_USER_URL = "https://github.com/osiristape"
 DEFAULT_START_PAGE = 1
 DEFAULT_SPEED_MODE = "random"
 
+# Setup logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
+def get_follow_or_unfollow():
+    """Asks the user if they want to follow or unfollow users."""
+    action = input("Would you like to 'follow' or 'unfollow' users? (default 'follow'): ").strip().lower()
+    if action not in ["follow", "unfollow"]:
+        logging.warning("Invalid action provided. Defaulting to 'follow'.")
+        action = "follow"
+    return action
+
 def load_credentials():
     """Loads GitHub credentials from environment variables."""
+    from dotenv import load_dotenv
     load_dotenv()  # Load environment variables from a .env file if present
     github_username = os.getenv("GITHUB_USERNAME")
     github_password = os.getenv("GITHUB_PASSWORD")
+    if not github_username or not github_password:
+        logging.error("GitHub credentials are not set in the environment variables.")
+        exit(1)
     return github_username, github_password
 
 def get_user_inputs():
     """Prompts the user for necessary inputs."""
-    repo_url = input(f"Enter the GitHub repository URL (default {DEFAULT_REPO_URL}): ").strip()
-    if repo_url.lower() == "default":
-        repo_url = DEFAULT_REPO_URL
-
-    start_page = input(f"Enter the starting page (default {DEFAULT_START_PAGE}): ").strip()
-    if start_page.lower() == "default":
-        start_page = DEFAULT_START_PAGE
-    else:
-        try:
-            start_page = int(start_page)
-        except ValueError:
-            print("Invalid page number. Please try again.")
-            return get_user_inputs()
-
-    speed_mode = input(
-        f"Enter speed mode (fast, medium, slow, random) (default {DEFAULT_SPEED_MODE}): ").strip().lower()
-    if speed_mode == "default":
-        speed_mode = DEFAULT_SPEED_MODE
-    elif speed_mode not in ["fast", "medium", "slow", "random"]:
+    account_url = input(f"Enter the GitHub account URL (default '{DEFAULT_USER_URL}'): ").strip() or DEFAULT_USER_URL
+    try:
+        start_page = int(input(f"Enter the starting page (default {DEFAULT_START_PAGE}): ").strip() or DEFAULT_START_PAGE)
+    except ValueError:
+        print("Invalid page number. Please enter a valid number.")
+        return get_user_inputs()
+    
+    speed_mode = input("Enter speed mode (fast, medium, slow, random) (default 'random'): ").strip().lower() or DEFAULT_SPEED_MODE
+    if speed_mode not in ["fast", "medium", "slow", "random"]:
         print("Invalid speed mode. Please try again.")
         return get_user_inputs()
 
-    return repo_url, start_page, speed_mode
+    focus = input("Do you want to focus on 'stargazers' or 'followers'? (default 'stargazers'): ").strip().lower() or "stargazers"
+    if focus not in ["stargazers", "followers"]:
+        print("Invalid focus type. Please try again.")
+        return get_user_inputs()
+
+    return account_url, start_page, speed_mode, focus
 
 def set_delay(speed_mode):
     """Sets delay based on the chosen speed mode."""
-    if speed_mode == "fast":
-        return 0.1  # Increased delay for fast mode
-    elif speed_mode == "medium":
-        return 1  # Increased delay for medium mode
-    elif speed_mode == "slow":
-        return 5  # Increased delay for slow mode
-    elif speed_mode == "random":
-        return random.uniform(0.1, 10) 
-    else:
-        logging.warning("Invalid speed mode. Defaulting to random.")
-        return random.uniform(0.1, 10)  # Default random delay
+    delays = {
+        "fast": random.uniform(0.1, 0.3),
+        "medium": random.uniform(1, 2),
+        "slow": random.uniform(3, 5),
+        "random": random.uniform(0.1, 5)
+    }
+    delay = delays.get(speed_mode, delays["random"])
+    logging.info(f"Using delay: {delay:.2f} seconds.")
+    return delay
 
-def click_follow_button(button, delay, username, follow_count):
-    """Clicks a follow button with a delay and prints user info."""
+def click_button(driver, button, delay, count, action):
+    """Clicks a button with a delay and prints user info."""
     try:
-        button.click()
-        follow_count += 1
-        logging.info(f"{follow_count}. Followed {username}: https://github.com/{username}")
-        time.sleep(delay)  # Apply delay after each click
-        # Additional random delay to simulate human behavior
-        time.sleep(random.uniform(0.1, 2))
+        ActionChains(driver).move_to_element(button).click().perform()
+        time.sleep(random.uniform(0.5, 1.0))  # Random delay to mimic human clicking
+        count += 1
+        logging.info(f"Successfully {action}ed {button.get_attribute('aria-label')}. Total {action}ed: {count}")
+    except StaleElementReferenceException:
+        logging.error("Element reference is stale. Skipping this button.")
     except Exception as e:
-        logging.error(f"Error clicking follow button for {username}: {e}")
-    return follow_count
+        logging.error(f"Error clicking {action} button: {e}")
+    return count
 
 def display_intro(LOGO):
     """Displays the introductory information and disclaimer."""
@@ -81,20 +91,16 @@ def display_intro(LOGO):
 
 def get_user_agreement():
     """Ensures the user reads and agrees to the disclaimer."""
-    agreement = input("Type 'agree' to continue: ").strip().lower()
-    if agreement != 'agree':
+    if input("Type 'agree' to continue: ").strip().lower() != 'agree':
         print("You did not agree to the disclaimer. Exiting...")
-        exit()
+        exit(1)
 
 def ask_for_2fa_verification():
     """Asks if 2FA verification is needed."""
     response = input("Do you need to verify your account using 2FA? (yes/no): ").strip().lower()
-    if response == 'default':
-        return False
-    elif response == 'yes':
+    if response == 'yes':
         return True
     elif response == 'no':
         return False
-    else:
-        print("Invalid response. Please try again.")
-        return ask_for_2fa_verification()
+    print("Invalid response. Please enter 'yes' or 'no'.")
+    return ask_for_2fa_verification()
