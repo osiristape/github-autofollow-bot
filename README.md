@@ -1,10 +1,27 @@
 # github-autofollow-bot
-This Python script automates the process of following users on GitHub stargazers pages. Designed for educational purposes, the script logs into GitHub, navigates to a repository's stargazers page, and follows users based on configurable settings.
+
+This Python script automates the process of following or unfollowing users on GitHub. Designed for educational purposes, the script allows you to automate interactions with GitHub users and stargazers on repository pages, offering configurable options for a customizable experience.
 
 ## Features
-- **Automated Following:** Automatically follows users on specified stargazer pages.
-- **Configurable Settings:** Adjust speed, starting page, and repository URL.
-- **Logging:** Provides detailed logs of actions performed.
+
+- **Follow or Unfollow:** Choose between following or unfollowing users based on your preference.
+- **Target Options:** 
+  - **Stargazers:** Automatically follow or unfollow stargazers of a specified repository.
+  - **GitHub Users:** Follow or unfollow a specific GitHub user.
+- **Default Targets:**
+  - **GitHub User:** `https://github.com/osiristape`
+  - **GitHub Repository:** `https://github.com/gradle/gradle`
+- **Configurable Settings:**
+  - **Starting Page Number:** Specify the page number to start following or unfollowing users.
+  - **Speed Mode:** Choose a speed mode for the automation process to manage anti-detection.
+- **2FA Authentication:**
+  - **Verification Option:** Decide whether 2FA authentication is required.
+    - **If YES:** The script will pause for 60 seconds to allow manual input of the 2FA code received via email. The automation will continue once the code is provided.
+    - **If NO:** The script will proceed with automation without 2FA verification.
+
+## Logging
+
+The script provides detailed logs of the actions performed, helping you track the status and results of the automation process.
 
 ## Disclaimer
 
