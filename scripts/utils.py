@@ -84,9 +84,15 @@ def display_intro(LOGO):
     print("--------------------------------------------------")
     print(LOGO)
     print("--------------------------------------------------")
-    print("DISCLAIMER: This script may violate GitHub's community guidelines.")
-    print("Use this script for educational purposes only.")
-    print("To stop the script at any time, type 'stop' in the terminal.")
+    print("Author: osiristape")
+    print("Original Template Reference:")                              
+    print("GitHub Auto Follow by ZigaoWang")
+    print("https://github.com/ZigaoWang/github-auto-follow")
+    print("--------------------------------------------------")
+    print("DISCLAIMER: This script is provided \"as is\" without warranty")
+    print("of any kind. The author is not responsible for any consequences")
+    print("resulting from the use or misuse of this script.")
+    print("Use at your own risk.")
     print("--------------------------------------------------")
 
 def get_user_agreement():
