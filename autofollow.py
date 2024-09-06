@@ -40,7 +40,7 @@ def github_login(driver, username, password):
 
 def handle_accounts(driver, account_url, action, focus, page, delay, count):
     """Handles the logic for following or unfollowing users based on focus."""
-    target_url = f"{account_url}/{'stargazers?page=' if focus == 'stargazers' else '?tab=following&page='}{page}"
+    target_url = f"{account_url}/{'stargazers?page=' if focus == 'stargazers' else '?tab=followers&page='}{page}"
     
     logging.info(f"Navigating to {target_url}")
     driver.get(target_url)
