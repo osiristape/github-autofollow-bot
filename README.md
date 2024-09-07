@@ -7,7 +7,7 @@ This Python script automates the process of following or unfollowing users on Gi
 - **Follow or Unfollow:** Choose between following or unfollowing users based on your preference.
 - **Target Options:** 
   - **Stargazers:** Automatically follow or unfollow stargazers of a specified repository.
-  - **GitHub Users:** Follow or unfollow a specific GitHub user.
+  - **GitHub Users:** Follow or unfollow a specific GitHub user followers.
 - **Default Targets:**
   - **GitHub User:** `https://github.com/osiristape`
   - **GitHub Repository:** `https://github.com/gradle/gradle`
