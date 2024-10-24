@@ -1,23 +1,23 @@
-# github-autofollow-bot
+# github-autofollow-bot 
 
-This Python script automates the process of following or unfollowing users on GitHub. Designed for educational purposes, the script allows you to automate interactions with GitHub users and stargazers on repository pages, offering configurable options for a customizable experience.
+This Python script automates the process of following or unfollowing users on GitHub. Designed for educational purposes, the script facilitates automated interactions with GitHub users and stargazers on repository pages, offering configurable options for a customizable experience. During the 2FA authentication process, you can manually enter the OTP code in Microsoft Edge to ensure seamless automation.
 
 ## Features
 
-- **Follow or Unfollow:** Choose between following or unfollowing users based on your preference.
-- **Target Options:** 
+- **Follow or Unfollow:** Choose to follow or unfollow users based on your preference.
+- **Target Options:**
   - **Stargazers:** Automatically follow or unfollow stargazers of a specified repository.
-  - **GitHub Users:** Follow or unfollow a specific GitHub user followers.
+  - **GitHub Users:** Follow or unfollow the followers of a specific GitHub user.
 - **Default Targets:**
-  - **GitHub User:** `https://github.com/osiristape`
-  - **GitHub Repository:** `https://github.com/gradle/gradle`
+  - **GitHub User:** https://github.com/osiristape
+  - **GitHub Repository:** https://github.com/gradle/gradle
 - **Configurable Settings:**
   - **Starting Page Number:** Specify the page number to start following or unfollowing users.
   - **Speed Mode:** Choose a speed mode for the automation process to manage anti-detection.
 - **2FA Authentication:**
-  - **Verification Option:** Decide whether 2FA authentication is required.
-    - **If YES:** The script will pause for 60 seconds to allow manual input of the 2FA code received via email. The automation will continue once the code is provided.
-    - **If NO:** The script will proceed with automation without 2FA verification.
+  - **Verification Option:** Manually enter the OTP code to bypass 2FA authentication. (during automation process)
+    - **IMPORTANT:** Please select "NO" if you have already completed your 2FA authentication. In case you miss this, the script will display a warning for you to check.
+
 
 ## Logging
 
