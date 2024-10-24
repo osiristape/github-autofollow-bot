@@ -5,11 +5,20 @@ import threading
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.service import Service
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
-from scripts.utils import load_credentials, get_user_inputs, set_delay, click_button, display_intro, get_user_agreement, ask_for_2fa_verification, get_follow_or_unfollow
+from scripts.utils import (
+    load_credentials,
+    get_user_inputs,
+    set_delay,
+    click_button,
+    display_intro,
+    get_user_agreement,
+    ask_for_2fa_verification,
+    get_follow_or_unfollow,
+    handle_2fa  # Ensure handle_2fa is imported if you are using it
+)
 
 # Specify the path to the EdgeDriver executable
 driver_service = Service(r'C:\Path\To\Your\msedgedriver.exe')
@@ -92,6 +101,8 @@ def handle_accounts(driver, account_url, action, focus, page, delay, count):
 
     return True, count
 
+
+
 def listen_for_stop():
     """Listens for user input to stop the script."""
     global stop_thread
@@ -105,20 +116,22 @@ def main():
 
     display_intro(LOGO)
     get_user_agreement()
-    
+
     action = get_follow_or_unfollow()
     account_url, start_page, speed_mode, focus = get_user_inputs()
     delay = set_delay(speed_mode)
 
     github_username, github_password = load_credentials()
-    if ask_for_2fa_verification():
-        logging.info("2FA verification required. Waiting for 60 seconds...")
-        time.sleep(60)
 
-    logging.info("Starting now")
-
+    # Initialize the WebDriver before checking for 2FA
     driver = webdriver.Edge(service=driver_service)
     github_login(driver, github_username, github_password)
+
+    # Check for 2FA
+    if ask_for_2fa_verification():
+        handle_2fa(driver)  # Call the 2FA handling function here
+
+    logging.info("Starting now")
 
     stop_listener = threading.Thread(target=listen_for_stop)
     stop_listener.start()
