@@ -2,6 +2,11 @@
 
 This Python script automates the process of following or unfollowing users on GitHub. Designed for educational purposes, the script facilitates automated interactions with GitHub users and stargazers on repository pages, offering configurable options for a customizable experience. During the 2FA authentication process, you can manually enter the OTP code in Microsoft Edge to ensure seamless automation.
 
+| Author's Note                                                                                                                           |
+|---------------------------------------------------------------------------------------------------------------------------------|
+| Sorry for the late update. Please disregard the "YES" option in the 2FA verification, as it requires multiple processes, especially with device passkeys. I will focus on automating the bypass of 2FA verification using GitHub recovery codes only, allowing you to manually enter the OTP code from your email. |
+
+
 ## Features
 
 - **Follow or Unfollow:** Choose to follow or unfollow users based on your preference.
