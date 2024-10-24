@@ -3,7 +3,10 @@ import random
 import logging
 import time
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from dotenv import load_dotenv
 
 # Constants
 DEFAULT_REPO_URL = "https://github.com/gradle/gradle"
@@ -24,7 +27,6 @@ def get_follow_or_unfollow():
 
 def load_credentials():
     """Loads GitHub credentials from environment variables."""
-    from dotenv import load_dotenv
     load_dotenv()  # Load environment variables from a .env file if present
     github_username = os.getenv("GITHUB_USERNAME")
     github_password = os.getenv("GITHUB_PASSWORD")
@@ -103,6 +105,10 @@ def get_user_agreement():
 
 def ask_for_2fa_verification():
     """Asks if 2FA verification is needed."""
+    print("--------------------------------------------------")
+    print("Note: ENTER YOUR OTP CODE MANUALLY, ")
+    print("PLEASE TYPE 'NO' AFTER YOU ENTER THE OTP CODE")
+    print("--------------------------------------------------")
     response = input("Do you need to verify your account using 2FA? (yes/no): ").strip().lower()
     if response == 'yes':
         return True
@@ -110,3 +116,30 @@ def ask_for_2fa_verification():
         return False
     print("Invalid response. Please enter 'yes' or 'no'.")
     return ask_for_2fa_verification()
+
+def handle_2fa(driver):
+    """Handles the 2FA verification process for GitHub."""
+    logging.info("2FA verification required. Please select your preferred method:")
+    logging.info(" [x] UNDER CONSTRUCTION: This function will be updated to handle edge cases.")
+    logging.info("1. Confirm via email")
+    logging.info("2. Use passkey from your device")
+    logging.info("3. Enter GitHub recovery codes")
+
+    choice = input("Enter the number of your choice (1/2/3): ").strip()
+
+    if choice == '1':
+        logging.info("You chose to confirm via email.")
+        input("Please confirm the login via your email and then press Enter to continue.")
+    elif choice == '2':
+        logging.info("You chose to use a passkey.")
+        passkey = input("Please enter your passkey: ")
+        driver.find_element(By.ID, "otp").send_keys(passkey)  # Adjust if the field has a different ID
+        driver.find_element(By.ID, "otp").send_keys(Keys.RETURN)
+    elif choice == '3':
+        logging.info("You chose to enter recovery codes.")
+        recovery_code = input("Please enter your GitHub recovery code: ")
+        driver.find_element(By.ID, "otp").send_keys(recovery_code)  # Adjust if the field has a different ID
+        driver.find_element(By.ID, "otp").send_keys(Keys.RETURN)
+    else:
+        logging.error("Invalid choice. Please restart the process and select a valid option.")
+        exit(1)
