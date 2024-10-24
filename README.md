@@ -4,7 +4,7 @@ This Python script automates the process of following or unfollowing users on Gi
 
 | Author's Note                                                                                                                           |
 |---------------------------------------------------------------------------------------------------------------------------------|
-| Sorry for the late update. Please disregard the "YES" option in the 2FA verification, as it requires multiple processes, especially with device passkeys. I will focus on automating the bypass of 2FA verification using GitHub recovery codes only, allowing you to manually enter the OTP code from your email. |
+| Sorry for the late update. Please disregard the "YES" option in the 2FA verification, as it requires multiple processes, especially with device passkeys. I will focus on automating the bypass of 2FA verification using GitHub recovery codes only, allowing you to manually enter the OTP code from your email. Thanks! 👀 |
 
 
 ## Features
